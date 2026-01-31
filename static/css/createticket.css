@@ -1,0 +1,72 @@
+/* Flipkart Blue Theme */
+.bg-primary-blue {
+    background-color: #2874f0 !important;
+}
+
+body {
+    background-color: #e0e8f5;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border-radius: 2px;
+}
+
+header{
+    background: linear-gradient(135deg, #17578f, #1f8ef1)!important
+}
+
+.btn-warning {
+    background-color: #fb641b; /* Flipkart Orange/Yellow */
+    border-color: #fb641b;
+    color: white;
+}
+
+.footer-icons {
+    background-color: #fff;
+    font-size: 24px;
+    letter-spacing: 15px;
+    opacity: 0.6;
+}
+
+/* Status Step UI */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.status-pill {
+    padding: 5px 15px;
+    border-radius: 20px;
+    background: #e0e0e0;
+    font-size: 12px;
+}
+.status-active {
+    background: #2874f0;
+    color: white;
+    font-weight: bold;
+}
+
+
+#screenshots {
+    cursor: pointer;
+}
+
+.form-text {
+    font-size: 13px;
+    display: block;
+}
+
+.d-none {
+    display: none !important;
+}
+
+
+#msg {
+    transition: opacity 1s ease;
+    min-height: 18px; /* prevents layout jump */
+}

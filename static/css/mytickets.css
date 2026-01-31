@@ -1,0 +1,267 @@
+/* Flipkart Blue Theme */
+.bg-primary-blue {
+    background-color: #2874f0 !important;
+}
+
+body {
+    background-color: #e6f3f9;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    background: linear-gradient(135deg, #17578f, #1f8ef1)!important
+}
+
+
+.card {
+    border-radius: 2px;
+}
+
+.btn-warning {
+    background-color: #fb641b; /* Flipkart Orange/Yellow */
+    border-color: #fb641b;
+    color: white;
+}
+
+.footer-icons {
+    background-color: #fff;
+    font-size: 24px;
+    letter-spacing: 15px;
+    opacity: 0.6;
+}
+
+/* Status Step UI */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.status-pill {
+    padding: 5px 15px;
+    border-radius: 20px;
+    background: #e0e0e0;
+    font-size: 12px;
+}
+.status-active {
+    background: #2874f0;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Chat box style*/
+
+.chat-info {
+    background: #f1f1f1;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* Status Step UI */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.status-pill {
+    padding: 5px 15px;
+    border-radius: 20px;
+    background: #e0e0e0;
+    font-size: 12px;
+}
+.status-active {
+    background: #2874f0;
+    color: white;
+    font-weight: bold;
+}
+
+
+.chat-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 10px;
+    display: none;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+/* HEADER */
+.chat-header {
+    background: rgb(72, 190, 64);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px 10px 0 0;
+}
+
+/* BODY */
+.chat-body {
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    background: #d7dce4;
+}
+
+/* MESSAGES */
+.agent-msg {
+    background: #f1f1f1;
+    padding: 6px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.user-msg {
+    background: #c6eaf8;
+    padding: 6px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+/* INPUT */
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    
+}
+
+.chat-input input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+}
+
+.chat-input button {
+    border: none;
+    color: white;
+    padding: 8px 12px;
+}
+
+
+/* Ticket Card Styling */
+.ticket-card {
+    border-radius: 14px;
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+.ticket-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Card Header */
+.ticket-card .card-header {
+    border-radius: 14px 14px 0 0;
+    font-size: 14px;
+}
+
+/* Status Pills */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.status-pill {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #e0e0e0;
+}
+
+.status-active {
+    background: linear-gradient(135deg, #2874f0, #0d6efd);
+    color: white;
+    font-weight: 600;
+}
+
+/* Chat Button Hover */
+.btn-outline-primary:hover {
+    background: #2874f0;
+    color: #fff;
+}
+
+
+
+.ticket-card {
+    min-height: 180px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ffffff, #f1f5ff);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.ticket-card h6 {
+    font-size: 13px;
+}
+
+.ticket-card p {
+    font-size: 15px;
+}
+
+.chat-popup {
+    width: 320px;
+}
+
+.user-msg {
+    text-align: right;
+}
+
+
+
+/* Floating Chat Popup */
+.chat-popup {
+    display: none; position: fixed; bottom: 20px; right: 20px;
+    width: 350px; height: 450px; background: white; border-radius: 10px;
+    z-index: 1000; flex-direction: column; overflow: hidden;
+}
+.chat-header { background: #22c55e; color: white; padding: 10px 15px; display: flex; justify-content: space-between; }
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f8f9fa; height: 300px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { padding: 8px 12px; border-radius: 15px; max-width: 80%; font-size: 0.9rem; margin-bottom: 5px; }
+.user-msg { align-self: flex-end; background: #2874f0; color: white; border-bottom-right-radius: 2px; }
+.agent-msg { align-self: flex-start; background: #e9ecef; color: #333; border-bottom-left-radius: 2px; }
+.chat-input-area { border-top: 1px solid #ddd; padding: 10px; display: flex; gap: 5px; }
+
+
+.bg-info { background-color: #0dcaf0 !important; color: #000; }      /* Open -> In Progress */
+.bg-primary { background-color: #0d6efd !important; color: #fff; }   /* In Progress -> Resolved */
+.bg-danger { background-color: #dc3545 !important; color: #fff; }    /* Final Close */
+
+
+/* Red dot for unread messages */
+.unread-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ef4444; /* Red */
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.8);
+}
+
+.custom-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); display: none; align-items: center;
+            justify-content: center; z-index: 10000;
+        }
+        .custom-modal-content {
+            background: #fff; width: 90%; max-width: 550px;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .attachment-preview {
+            width: 100px; height: 100px; object-fit: cover;
+            border-radius: 8px; cursor: pointer; border: 1px solid #eee;
+        }
+        .detail-label {
+            font-size: 0.75rem; text-transform: uppercase;
+            font-weight: 700; color: #6c757d; margin-bottom: 2px; display: block;
+        }
