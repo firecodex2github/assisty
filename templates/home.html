@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L1 Support | Home</title>
+    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* AI Chat Widget Styles */
+        .ai-chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            transition: all 0.3s ease;
+            font-size: 28px;
+            color: white;
+        }
+
+        .ai-chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .ai-chat-button.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* Chat Widget Container */
+        .ai-chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+            display: none;
+            flex-direction: column;
+            z-index: 998;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .ai-chat-widget.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .ai-chat-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 0;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .ai-message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .ai-message.bot {
+            text-align: left;
+        }
+
+        .ai-message.user {
+            text-align: right;
+        }
+
+        .ai-message-content {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 12px;
+            word-wrap: break-word;
+            max-width: 80%;
+        }
+
+        .ai-message.bot .ai-message-content {
+            background: #e9ecef;
+            color: #333;
+            border-radius: 12px 12px 12px 0;
+        }
+
+        .ai-message.user .ai-message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 12px;
+        }
+
+        .ai-chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .ai-chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .ai-send-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .ai-send-button:hover {
+            transform: scale(1.05);
+        }
+
+        .ai-send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .ai-loading {
+            text-align: center;
+            padding: 10px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .ai-dots {
+            display: inline-block;
+        }
+
+        .ai-dots span {
+            animation: blink 1.4s infinite;
+        }
+
+        .ai-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .ai-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0%, 60%, 100% { opacity: 0.5; }
+            30% { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .ai-chat-widget {
+                width: 90vw;
+                height: 60vh;
+                bottom: 80px;
+                right: 5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo-area">
+        <img src="../static/images/home/logo.png" alt="Logo">
+        <span>L1 Support Desk</span>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <h1>Hi, Welcome to L1 Customer Support</h1>
+    <p>
+        A secure and efficient platform to raise tickets,
+        track issues, and get quick resolutions from our support team.
+    </p>
+</section>
+
+<!-- ROLE SELECTION -->
+<section class="role-section">
+    <div class="role-card">
+        <img src="../static/images/home/customer.png" alt="Customer">
+        <h3>Customer Login</h3>
+        <p>
+            Raise support tickets, upload screenshots,
+            and track issue status in real time.
+        </p>
+        <a href="/login">Login as Customer</a>
+    </div>
+
+    <div class="role-card">
+        <img src="../static/images/home/agent.png" alt="Agent">
+        <h3>Agent Login</h3>
+        <p>
+            Manage assigned tickets, communicate with customers,
+            and resolve issues efficiently.
+        </p>
+        <a href="/agentlogin">Login as Agent</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    © 2026 L1 Support Desk | Secure Helpdesk Platform
+</footer>
+
+<!-- AI Assistant Button -->
+<button class="ai-chat-button" id="aiChatBtn" title="Open AI Assistant">
+    <i class="fas fa-robot"></i>
+</button>
+
+<!-- AI Chat Widget -->
+<div class="ai-chat-widget" id="aiChatWidget">
+    <div class="ai-chat-header">
+        <h3><i class="fas fa-brain"></i> AI Assistant</h3>
+        <button class="ai-chat-close" id="aiCloseBtn">×</button>
+    </div>
+    <div class="ai-chat-messages" id="aiMessagesContainer">
+        <div class="ai-message bot">
+            <div class="ai-message-content">
+                Hi! 👋 I'm your AI assistant. How can I help you today?
+            </div>
+        </div>
+    </div>
+    <div class="ai-chat-input-area">
+        <input 
+            type="text" 
+            class="ai-chat-input" 
+            id="aiChatInput" 
+            placeholder="Type your message..."
+            autocomplete="off"
+        >
+        <button class="ai-send-button" id="aiSendBtn">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    // AI Chat Widget Functionality
+    const aiChatBtn = document.getElementById('aiChatBtn');
+    const aiCloseBtn = document.getElementById('aiCloseBtn');
+    const aiChatWidget = document.getElementById('aiChatWidget');
+    const aiMessagesContainer = document.getElementById('aiMessagesContainer');
+    const aiChatInput = document.getElementById('aiChatInput');
+    const aiSendBtn = document.getElementById('aiSendBtn');
+
+    // Toggle chat widget
+    aiChatBtn.addEventListener('click', () => {
+        aiChatWidget.classList.toggle('active');
+        aiChatBtn.classList.toggle('active');
+        if (aiChatWidget.classList.contains('active')) {
+            aiChatInput.focus();
+        }
+    });
+
+    // Close chat widget
+    aiCloseBtn.addEventListener('click', () => {
+        aiChatWidget.classList.remove('active');
+        aiChatBtn.classList.remove('active');
+    });
+
+    // Send message on button click
+    aiSendBtn.addEventListener('click', sendMessage);
+
+    // Send message on Enter key
+    aiChatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    async function sendMessage() {
+        const message = aiChatInput.value.trim();
+        if (!message) return;
+
+        // Add user message to chat
+        addMessageToChat(message, 'user');
+        aiChatInput.value = '';
+        aiSendBtn.disabled = true;
+
+        // Show loading indicator
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'ai-message bot';
+        loadingDiv.innerHTML = '<div class="ai-loading"><div class="ai-dots"><span>.</span><span>.</span><span>.</span></div></div>';
+        aiMessagesContainer.appendChild(loadingDiv);
+        aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+
+        try {
+            // Call AI API
+            const response = await fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('API Error:', errorData);
+                throw new Error('Failed to get response: ' + JSON.stringify(errorData));
+            }
+
+            const data = await response.json();
+            
+            // Remove loading indicator
+            loadingDiv.remove();
+
+            // Add AI response to chat
+            addMessageToChat(data.reply, 'bot');
+
+        } catch (error) {
+            console.error('Error:', error);
+            loadingDiv.remove();
+            addMessageToChat('Sorry, I encountered an error. Please try again. Check console for details.', 'bot');
+        } finally {
+            aiSendBtn.disabled = false;
+            aiChatInput.focus();
+        }
+    }
+
+    function addMessageToChat(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `ai-message ${sender}`;
+        messageDiv.innerHTML = `<div class="ai-message-content">${escapeHtml(message)}</div>`;
+        aiMessagesContainer.appendChild(messageDiv);
+        aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+</script>
+
+</body>
+</html>
