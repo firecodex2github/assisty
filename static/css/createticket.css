@@ -1,0 +1,48 @@
+
+.bg-primary-blue {
+    background-color: #2874f0 !important;
+}
+
+body {
+    background-color: #e0e8f5;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border-radius: 2px;
+}
+
+
+.btn-warning {
+    background-color: #fb641b;
+    border-color: #fb641b;
+    color: white;
+}
+
+.footer-icons {
+    background-color: #fff;
+    font-size: 24px;
+    letter-spacing: 15px;
+    opacity: 0.6;
+}
+
+
+#screenshots {
+    cursor: pointer;
+}
+
+.form-text {
+    font-size: 13px;
+    display: block;
+}
+
+
+
+
+#msg {
+    transition: opacity 1s ease;
+    min-height: 18px; 
+}
