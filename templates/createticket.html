@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/static/css/createticket.css">
 </head>
 <body>
-    <!--Navbar-->
     <header class="navbar navbar-expand-lg navbar-dark bg-primary-blue p-2">
         <div class="container-fluid">
             <span class="navbar-brand fw-bold">Kart <span class="text-warning">Marketplace</span></span>
@@ -19,8 +18,6 @@
         </div>
     </header>
 
-
-    <!--Forms-->
     <div class="container mt-4 mb-5">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
@@ -74,7 +71,7 @@
                             <span class="text-muted d-block small">(Max 3 images, PNG/JPG, 4MB total)</span>
                         </label>
                         <div class="col-sm-6">
-                            <input type="file" id="screenshots" class="form-control" accept=".png,.jpg,.jpeg" multiple>
+                            <input type="file" id="screenshots" class="form-control" accept=".png,.jpg" multiple>
                             <div id="fileList" class="mt-2 small"></div>
                             <div class="form-text text-danger" id="msg" style="display:none;"></div>
                         </div>
@@ -102,7 +99,7 @@
         </div>
     </div>
 
-<!-- Notification Modal -->
+
 <div class="modal fade" id="notifyModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div id="modalBox" class="modal-content text-center p-4 border-0">

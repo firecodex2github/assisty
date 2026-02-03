@@ -95,7 +95,6 @@ async function fetchUserEmail() {
  * FILE LISTENER LOGIC
  */
 
-
 // screenshot validation
 screenshotInput.addEventListener('change', (e) => {
 
@@ -112,10 +111,16 @@ screenshotInput.addEventListener('change', (e) => {
 
 
     for (let file of files) {
-        if (!file.type.startsWith("image/")){
-            showImageError("Only image files (PNG, JPG, JPEG) allowed");
+        const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
+        const allowedExtensions = [".png", ".jpg"];
+
+        const fileName = file.name.toLowerCase();
+        const fileExt = fileName.substring(fileName.lastIndexOf("."));
+
+        if (!allowedTypes.includes(file.type) || !allowedExtensions.includes(fileExt)) {
+            showImageError("Only PNG and JPG files allowed (JPEG not allowed)");
             continue;
-        };
+        }
 
         if (file.size > MAX_IMG_SIZE){
             showImageError("Each image must be less than 4MB");
