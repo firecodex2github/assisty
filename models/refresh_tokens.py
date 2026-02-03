@@ -12,7 +12,6 @@ class UserRefreshToken(Base):
 
     user = relationship("User", back_populates="user_refresh_token")
 
-
 class AgentRefreshToken(Base):
     __tablename__ = "agent_refresh_tokens"
 

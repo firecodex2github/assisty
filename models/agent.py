@@ -12,7 +12,7 @@ class Agent(Base):
     password = Column(String(255))
     role   = Column(String(255),default="agent")
 
-    tickets = relationship("Ticket", back_populates="agent")
+    #tickets = relationship("Ticket", back_populates="agent")
 
     agent_refresh_token=relationship("AgentRefreshToken", back_populates="agent")
 
