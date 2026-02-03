@@ -1,3 +1,7 @@
+/**
+ * createticket.js
+ * Handles Ticket Creation, File Uploads, and Session Refreshing
+ */
 
 const ticketForm = document.getElementById('ticketForm');
 const screenshotInput = document.getElementById('screenshots');
@@ -13,13 +17,13 @@ const MAX_IMG_SIZE = 4 * 1024 * 1024;
 const MAX_PDF = 2;
 const MAX_PDF_SIZE = 5 * 1024 * 1024;
 
-let selectedFiles = []; // for images
-let selectedPDFs = [];  // for pdfs
+let selectedFiles = []; // For images
+let selectedPDFs = [];  // For PDFs
 
-
-
-//  Ensures the user stays logged in by catching 401 errors and refreshing the token.
-
+/**
+ * REFRESH TOKEN HELPER
+ * Ensures the user stays logged in by catching 401 errors and refreshing the token.
+ */
 async function fetchWithRefresh(url, options = {}) {
     let token = sessionStorage.getItem("access_token");
     if (!token) { logout(); return null; }
@@ -62,9 +66,9 @@ async function fetchWithRefresh(url, options = {}) {
     return response;
 }
 
-
-
-// Page loading time showing on email only..
+/**
+ * INITIALIZATION
+ */
 document.addEventListener("DOMContentLoaded", () => {
     const token = sessionStorage.getItem("access_token");
     if (!token) { 
@@ -74,8 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchUserEmail();
 });
 
-
-// User email has still showing in this page
 async function fetchUserEmail() {
     try {
         const res = await fetchWithRefresh("http://127.0.0.1:8000/user/me/email");
@@ -89,21 +91,41 @@ async function fetchUserEmail() {
     }
 }
 
+/**
+ * FILE LISTENER LOGIC
+ */
 
-// Screenshot upload and validation
 
+// screenshot validation
 screenshotInput.addEventListener('change', (e) => {
+
+    msg.style.display = "none";
+    msg.innerText = "";
+
     const files = Array.from(e.target.files);
 
     if (files.length + selectedFiles.length > MAX_IMG) {
-        showInlineError(`You can upload only ${MAX_IMG} screenshots total.`);
+        showImageError(`Maximum ${MAX_IMG} images only allowed`);
+        screenshotInput.value = "";
         return;
     }
 
+
     for (let file of files) {
-        if (!file.type.startsWith("image/")) continue;
-        if (file.size > MAX_IMG_SIZE) continue;
-        if (selectedFiles.some(f => f.name === file.name)) continue;
+        if (!file.type.startsWith("image/")){
+            showImageError("Only image files (PNG, JPG, JPEG) allowed");
+            continue;
+        };
+
+        if (file.size > MAX_IMG_SIZE){
+            showImageError("Each image must be less than 4MB");
+            continue;
+        };
+
+        if (selectedFiles.some(f => f.name === file.name)){
+            showImageError(`Duplicate image ignored: ${file.name}`);
+            continue;
+        };
 
         selectedFiles.push(file);
     }
@@ -116,20 +138,38 @@ screenshotInput.addEventListener('change', (e) => {
 
 
 
-// Pdf validation with upload
+// Pdf validation
 
 pdfInput.addEventListener('change', (e) => {
+
+    pdfMsg.style.display = "none";
+    pdfMsg.innerText = "";
+
     const files = Array.from(e.target.files);
 
     if (files.length + selectedPDFs.length > MAX_PDF) {
-        showPDFError(`You can upload only ${MAX_PDF} PDFs total.`);
+        showPDFError(`Maximum ${MAX_PDF} PDFs only allowed`);
+        pdfInput.value = "";
         return;
     }
 
+
     for (let file of files) {
-        if (file.type !== "application/pdf") continue;
-        if (file.size > MAX_PDF_SIZE) continue;
-        if (selectedPDFs.some(f => f.name === file.name)) continue;
+        if (file.type !== "application/pdf"){
+            showPDFError("Only PDF files allowed");
+            continue;
+        };
+        
+        if (file.size > MAX_PDF_SIZE){
+            showPDFError("Each PDF must be less than 5MB");
+            continue;
+        };
+
+
+        if (selectedPDFs.some(f => f.name === file.name)){
+            showPDFError(`Duplicate PDF ignored: ${file.name}`);
+            continue;
+        };
 
         selectedPDFs.push(file);
     }
@@ -141,7 +181,10 @@ pdfInput.addEventListener('change', (e) => {
 
 
 
-// User seleted files showing on browser in files and pdfs
+
+
+
+
 function updateUI() {
     fileListDiv.innerHTML = "";
     pdfListDiv.innerHTML = "";
@@ -170,21 +213,16 @@ function updateUI() {
 }
 
 
-// seleted files removing
+
 window.removeImage = (index) => {
     selectedFiles.splice(index, 1);
     updateUI();
 };
 
-
-// seleted pdfs removing
 window.removePDF = (index) => {
     selectedPDFs.splice(index, 1);
     updateUI();
 };
-
-
-// Tickets submittin
 
 ticketForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -202,8 +240,6 @@ ticketForm.addEventListener('submit', async (e) => {
     selectedPDFs.forEach(f => formData.append("pdfs", f));
 
     try {
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Submitting...";
 
         const res = await fetchWithRefresh("http://127.0.0.1:8000/user/createticket", {
             method: "POST",
@@ -225,15 +261,8 @@ ticketForm.addEventListener('submit', async (e) => {
     } catch (err) {
         console.error("Submission error:", err);
         showNotification("error", "Connection error");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Submit Ticket";
-    }
+    } 
 });
-
-
-
-// Model message has showing on Suucess and Failed
 
 function showNotification(type, message) {
     const modalEl = document.getElementById("notifyModal");
@@ -263,16 +292,14 @@ function showNotification(type, message) {
     }
 }
 
-
-// Inline errors messages showing on #msg
-function showInlineError(msg) {
+function showImageError(msg) {
     msgDiv.innerText = msg;
     msgDiv.style.display = "block";
     msgDiv.style.color = "red";
     setTimeout(() => { msgDiv.style.display = "none"; }, 5000);
 }
 
-// Inline errors messages showing on #pdfMsg
+
 function showPDFError(msg) {
     pdfMsgDiv.innerText = msg;
     pdfMsgDiv.style.display = "block";
@@ -284,7 +311,7 @@ function showPDFError(msg) {
 
 
 
-// Updated Logout to match Postman logic 
+/* Updated Logout to match Postman logic */
 window.logout = async function() {
     const refreshToken = sessionStorage.getItem("refresh_token");
     if (refreshToken) {

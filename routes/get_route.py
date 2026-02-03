@@ -28,12 +28,12 @@ def user_register(req: Request):
 def createticket_page(req: Request):   
     return templates.TemplateResponse("createticket.html", {"request": req})
 
-@router.get("/view-tickets")        
+@router.get("/view-tickets")        #Type (Page route) : Purpose (Returns HTML)
 def my_tickets_page(req: Request):   
     return templates.TemplateResponse("mytickets.html", {"request": req})
 
 
-@router.get("/api/mytickets")
+@router.get("/api/mytickets")       #Type (API route) : Purpose (Returns JSON data)
 def get_tickets_json(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     if current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Users only")

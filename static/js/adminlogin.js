@@ -1,4 +1,9 @@
-// login for admin
+
+/**
+ * adminlogin.js
+ * Handles Agent/Admin authentication and token storage
+ */
+
 function logIn(event) {
     event.preventDefault();
 
@@ -6,12 +11,31 @@ function logIn(event) {
     const password = document.getElementById("pass").value.trim();
     const msg = document.getElementById("msg");
 
-    if (msg) msg.innerText = "";
+    msg.innerText = "";
+
+
+    const usernameRegex = /^[a-zA-Z0-9]{4,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
+
 
     if (!username || !password) {
         showInlineError("All fields are required");
         return;
     }
+
+
+    if (!usernameRegex.test(username)) {
+        showInlineError("Username must be min 4 letters (no spaces)");
+        return;
+    }
+
+    if (!passwordRegex.test(password)) {
+        showInlineError("Password must be 8 chars, 1 uppercase, 1 lowercase & 1 number");
+        return;
+    }
+
+
 
     fetch("/agent/login", {
         method: "POST",
@@ -36,11 +60,15 @@ function logIn(event) {
         console.log("Admin Login successful");
 
         // 1. Save both tokens to sessionStorage
+        // Using 'access_token' and 'refresh_token' keys consistently
         sessionStorage.setItem("access_token", data.access_token);
         sessionStorage.setItem("refresh_token", data.refresh_token);
 
         showNotification("success", "Agent Login Successfully!..");
 
+        document.getElementById("uname").value = "";
+        document.getElementById("pass").value = "";
+        // 2. Redirect to the admin dashboard after a short delay
         setTimeout(() => {
             window.location.href = '/admin-dashboard';
         }, 1000);
@@ -52,8 +80,9 @@ function logIn(event) {
     });
 }
 
-
-// password hide and show functionaly in Admin login
+/**
+ * UI HELPER FUNCTIONS
+ */
 
 function togglePassword() {
     const passwordInput = document.getElementById("pass");
@@ -66,8 +95,6 @@ function togglePassword() {
     icon.classList.toggle("bi-eye-slash", isPassword);
 }
 
-
-// Inline errors message showing on #msg
 function showInlineError(message) {
     const msg = document.getElementById("msg");
     if (!msg) return;
@@ -80,13 +107,10 @@ function showInlineError(message) {
     }, 5000);
 }
 
-
-// Model message showing on Success or Failed..
-
 function showNotification(type, message) {
     const modalEl = document.getElementById("notifyModal");
     if (!modalEl) {
-        alert(message);
+        alert(message); // Fallback if modal doesn't exist
         return;
     }
 
@@ -109,9 +133,6 @@ function showNotification(type, message) {
     modal.show();
     setTimeout(() => { modal.hide(); }, 2000);
 }
-
-
-// back button
 
 function goBack() { 
     window.location.href = '/'; 

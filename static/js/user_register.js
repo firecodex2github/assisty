@@ -1,5 +1,4 @@
 
-// signup
 function signUp(event) {
     event.preventDefault();
 
@@ -11,8 +10,27 @@ function signUp(event) {
 
     msg.innerText = "";
 
+    const nameRegex = /^[A-Za-z ]{3,50}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
     if (!fullname || !email || !password || !confirm_password) {
         showInlineError("All fields are required");
+        return;
+    }
+
+    if (!nameRegex.test(fullname)) {
+        showInlineError("Name should contain only letters (min 3 chars)");
+        return;
+    }
+
+    if (!emailRegex.test(email)) {
+        showInlineError("Enter a valid email address");
+        return;
+    }
+
+    if (!passwordRegex.test(password)) {
+        showInlineError("Password must be 8 chars with uppercase, lowercase & number");
         return;
     }
 
@@ -37,11 +55,11 @@ function signUp(event) {
         const data = await res.json();
 
         if (!res.ok) {
-    
+    //  HANDLE PYDANTIC VALUE ERROR CLEANLY
     if (Array.isArray(data.detail)) {
         const errObj = data.detail[0];
 
-        
+        // CLEANING: Strip "Value error, " from the message
         let cleanMsg = errObj.msg.replace(/^Value error, /i, "");
 
         if (errObj.type === "value_error") {
@@ -49,12 +67,13 @@ function signUp(event) {
             throw "handled";
         }
 
+        // fallback (other validation errors)
         showInlineError(cleanMsg);
         throw "handled";
     }
 
     if (typeof data.detail === "string") {
-        
+        // CLEANING: Strip from string-based detail as well
         let cleanMsg = data.detail.replace(/^Value error, /i, "");
         showInlineError(cleanMsg);
         throw "handled";
@@ -63,10 +82,16 @@ function signUp(event) {
     throw "server";
 }
 
-        return data;
+    return data;
     })
     .then(() => {
         showNotification("success", "Registration Successfully!..");
+
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("confirmPassword").value = "";
 
         setTimeout(() => {
             window.location.href = "/login";
@@ -79,7 +104,7 @@ function signUp(event) {
     });
 }
 
-// inline errors showing on #msg
+
 function showInlineError(message) {
     const msg = document.getElementById("msg");
 
@@ -93,8 +118,6 @@ function showInlineError(message) {
     }, 5000);
 }
 
-
-// password hide and show functionaly
 
 function togglePassword() {
     const passwordInput = document.getElementById("password");
@@ -112,8 +135,6 @@ function togglePassword() {
 }
 
 
-// confirm-password hide and show functionaly
-
 function toggleConfirmPassword() {
     const confirmInput = document.getElementById("confirmPassword");
     const icon = document.getElementById("toggleConfirmIcon");
@@ -129,7 +150,7 @@ function toggleConfirmPassword() {
     }
 }
 
-// Model message showing on Success or Failed..
+
 function showNotification(type, message) {
     const modalEl = document.getElementById("notifyModal");
     const modal = new bootstrap.Modal(modalEl);
@@ -160,8 +181,6 @@ function showNotification(type, message) {
 }
 
 
-
-// back button
 function goBack() { 
-    window.location.href = '/'; 
+    window.location.href = '/';    
 }
