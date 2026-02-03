@@ -5,9 +5,10 @@ from utils.prompts import SYSTEM_PROMPT
 from dotenv import load_dotenv
 load_dotenv()
 
-#  INIT GROQ CLIENT
-client = Groq(api_key=os.getenv("LLM_API_KEY"))
 
+# INIT GROQ CLIENT  ( THIS WAS MISSING)
+
+client = Groq(api_key=os.getenv("LLM_API_KEY"))
 
 def handle_l1_support(msg: str):
     msg = msg.lower()
@@ -25,7 +26,7 @@ def handle_l1_support(msg: str):
 
     if "return" in msg:
         return (
-            " **Return Product**\n\n"
+            
             "Steps to return:\n\n"
             "1. Go to **My Orders**\n"
             "2. Select the product\n"
@@ -50,7 +51,7 @@ def handle_l1_support(msg: str):
 
     if "agent" in msg or "customer care" in msg or "human" in msg:
         return (
-            " **Connect with Support Agent**\n\n"
+            "🎧 **Connect with Support Agent**\n\n"
             "You can talk to a customer support agent by:\n\n"
             "1. create the issue ticket\n"
             "2. after the ticket is created, you can see the chat in the corner\n"
@@ -65,31 +66,45 @@ def handle_l1_support(msg: str):
 
 #  AI HANDLER (GROQ)
 
+chat_memory = []
+
 def handle_ai(message: str):
     try:
+        chat_memory.append({
+            "role": "user",
+            "content": message
+        })
+
         completion = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": message}
+                *chat_memory
             ],
             temperature=0.4,
-            max_completion_tokens=250,
-            top_p=1
+            max_completion_tokens=200
         )
 
         reply = completion.choices[0].message.content
+
+        chat_memory.append({
+            "role": "assistant",
+            "content": reply
+        })
+
+        
+        chat_memory[:] = chat_memory[-10:]
+
         return reply
 
     except Exception as e:
         print("Groq error:", e)
-        return (
-            "Something went wrong while answering. Please try again."
-        )
+        return "Something went wrong while answering. Please try again."
 
 
 
-# MAIN ENTRY POINT
+
+#  MAIN ENTRY POINT
 
 def get_ai_reply(message: str):
     l1 = handle_l1_support(message)
