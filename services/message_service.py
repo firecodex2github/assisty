@@ -4,6 +4,7 @@ from fastapi import WebSocket,WebSocketDisconnect,HTTPException
 from auth.jwt_utils import *
 import json
 from typing import List,Dict
+from models.users import User
 
 
 class ConnectionManager:
@@ -192,9 +193,13 @@ def get_single_ticket_details(ticket_no: str, user: dict, db: Session):
     #Only block USERS, not agents
     if user["role"] == "user" and ticket.user_id != str(user["user_id"]):
         raise HTTPException(status_code=403, detail="Access denied")
+    
+    user_email = db.query(User.email).filter(User.id == (ticket.user_id)).scalar()
+
 
     return {
         "ticket_no": ticket.ticket_no,
+        "user_email":user_email,
         "subject": ticket.subject,
         "status": ticket.status,
         "issue_type": ticket.issue_type,

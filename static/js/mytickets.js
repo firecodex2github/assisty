@@ -96,7 +96,8 @@ async function fetchTickets() {
                             <span class="badge ${getPriorityClass(priority)} small mb-2">${priority} Priority</span>
                         </div>
                         <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="viewIssue('${t.ticket_no}')">View</button>
-                    </div>
+                        <span class="badge bg-success text-white">${new Date(t.created_at).toLocaleDateString()}</span>
+                        </div>
                     <div class="d-flex justify-content-between gap-1 my-4">
                         <span class="badge rounded-pill flex-fill ${pOpen}">Open</span>
                         <span class="badge rounded-pill flex-fill ${pProgress}">In Progress</span>
