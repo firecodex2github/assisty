@@ -56,14 +56,24 @@
             <h2>Welcome Agent</h2>
             <span>Login to your dashboard</span>
 
+<<<<<<< HEAD
             <form onsubmit="logIn(event)" novalidate>
                 <div class="input-group">
                     <input type="text" name="username" id="uname" pattern="^[a-zA-Z0-9]{4,}$" />
+=======
+            <form onsubmit="logIn(event)">
+                <div class="input-group">
+                    <input type="text" name="username" id="uname">
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                     <label>Username</label>
                 </div>
 
                 <div class="input-group">
+<<<<<<< HEAD
                     <input type="password" name="password" id="pass" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$" />
+=======
+                    <input type="password" name="password" id="pass">
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                     <label>Password</label>
                     <i id="toggleIcon" class="bi bi-eye password-toggle" onclick="togglePassword()"></i>
                 </div>

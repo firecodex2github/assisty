@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 function signUp(event) {
     event.preventDefault();
 
@@ -10,15 +14,19 @@ function signUp(event) {
 
     msg.innerText = "";
 
+<<<<<<< HEAD
     const nameRegex = /^[A-Za-z ]{3,50}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     if (!fullname || !email || !password || !confirm_password) {
         showInlineError("All fields are required");
         return;
     }
 
+<<<<<<< HEAD
     if (!nameRegex.test(fullname)) {
         showInlineError("Name should contain only letters (min 3 chars)");
         return;
@@ -34,6 +42,8 @@ function signUp(event) {
         return;
     }
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     if (password !== confirm_password) {
         showInlineError("Password and Confirm Password do not match");
         return;
@@ -55,7 +65,11 @@ function signUp(event) {
         const data = await res.json();
 
         if (!res.ok) {
+<<<<<<< HEAD
     //  HANDLE PYDANTIC VALUE ERROR CLEANLY
+=======
+    // ✅ HANDLE PYDANTIC VALUE ERROR CLEANLY
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     if (Array.isArray(data.detail)) {
         const errObj = data.detail[0];
 
@@ -82,17 +96,24 @@ function signUp(event) {
     throw "server";
 }
 
+<<<<<<< HEAD
     return data;
+=======
+        return data;
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     })
     .then(() => {
         showNotification("success", "Registration Successfully!..");
 
+<<<<<<< HEAD
 
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
         document.getElementById("confirmPassword").value = "";
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
         setTimeout(() => {
             window.location.href = "/login";
         }, 2000);
@@ -182,5 +203,9 @@ function showNotification(type, message) {
 
 
 function goBack() { 
+<<<<<<< HEAD
     window.location.href = '/';    
+=======
+    window.location.href = '/'; 
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 }

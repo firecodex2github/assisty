@@ -4,8 +4,11 @@ from fastapi import WebSocket,WebSocketDisconnect,HTTPException
 from auth.jwt_utils import *
 import json
 from typing import List,Dict
+<<<<<<< HEAD
 from models.users import User
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
 
 class ConnectionManager:
@@ -80,7 +83,11 @@ async def websocket_chat(websocket: WebSocket, ticket_no: str, sender: str, db: 
             if received_text.startswith("{"):
                 try:
                     data = json.loads(received_text)   # conversts json string into python dict
+<<<<<<< HEAD
                      # Check if it's a typing indicator
+=======
+                     # NEW LOGIC: Check if it's a typing indicator
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                     if data.get("type") == "typing":
                         await manager.broadcast(
                             {
@@ -89,7 +96,11 @@ async def websocket_chat(websocket: WebSocket, ticket_no: str, sender: str, db: 
                             },
                             ticket_no
                         )
+<<<<<<< HEAD
                         continue 
+=======
+                        continue # SKIP database saving
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
                     message_text = data.get("message", received_text)  #data.get(KEY, DEFAULT)
                 except json.JSONDecodeError:
@@ -195,12 +206,17 @@ def get_single_ticket_details(ticket_no: str, user: dict, db: Session):
     if user["role"] == "user" and ticket.user_id != str(user["user_id"]):
         raise HTTPException(status_code=403, detail="Access denied")
 
+<<<<<<< HEAD
 
     user_email = db.query(User.email).filter(User.id == (ticket.user_id)).scalar()
 
     return {
         "ticket_no": ticket.ticket_no,
         "user_email":user_email,
+=======
+    return {
+        "ticket_no": ticket.ticket_no,
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
         "subject": ticket.subject,
         "status": ticket.status,
         "issue_type": ticket.issue_type,

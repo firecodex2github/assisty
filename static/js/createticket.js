@@ -95,6 +95,7 @@ async function fetchUserEmail() {
  * FILE LISTENER LOGIC
  */
 
+<<<<<<< HEAD
 // screenshot validation
 screenshotInput.addEventListener('change', (e) => {
 
@@ -131,6 +132,21 @@ screenshotInput.addEventListener('change', (e) => {
             showImageError(`Duplicate image ignored: ${file.name}`);
             continue;
         };
+=======
+
+screenshotInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+
+    if (files.length + selectedFiles.length > MAX_IMG) {
+        showInlineError(`You can upload only ${MAX_IMG} screenshots total.`);
+        return;
+    }
+
+    for (let file of files) {
+        if (!file.type.startsWith("image/")) continue;
+        if (file.size > MAX_IMG_SIZE) continue;
+        if (selectedFiles.some(f => f.name === file.name)) continue;
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
         selectedFiles.push(file);
     }
@@ -146,6 +162,7 @@ screenshotInput.addEventListener('change', (e) => {
 // Pdf validation
 
 pdfInput.addEventListener('change', (e) => {
+<<<<<<< HEAD
 
     pdfMsg.style.display = "none";
     pdfMsg.innerText = "";
@@ -175,6 +192,19 @@ pdfInput.addEventListener('change', (e) => {
             showPDFError(`Duplicate PDF ignored: ${file.name}`);
             continue;
         };
+=======
+    const files = Array.from(e.target.files);
+
+    if (files.length + selectedPDFs.length > MAX_PDF) {
+        showPDFError(`You can upload only ${MAX_PDF} PDFs total.`);
+        return;
+    }
+
+    for (let file of files) {
+        if (file.type !== "application/pdf") continue;
+        if (file.size > MAX_PDF_SIZE) continue;
+        if (selectedPDFs.some(f => f.name === file.name)) continue;
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
         selectedPDFs.push(file);
     }
@@ -245,6 +275,11 @@ ticketForm.addEventListener('submit', async (e) => {
     selectedPDFs.forEach(f => formData.append("pdfs", f));
 
     try {
+<<<<<<< HEAD
+=======
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Submitting...";
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
         const res = await fetchWithRefresh("http://127.0.0.1:8000/user/createticket", {
             method: "POST",
@@ -266,7 +301,14 @@ ticketForm.addEventListener('submit', async (e) => {
     } catch (err) {
         console.error("Submission error:", err);
         showNotification("error", "Connection error");
+<<<<<<< HEAD
     } 
+=======
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit Ticket";
+    }
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 });
 
 function showNotification(type, message) {
@@ -297,7 +339,11 @@ function showNotification(type, message) {
     }
 }
 
+<<<<<<< HEAD
 function showImageError(msg) {
+=======
+function showInlineError(msg) {
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     msgDiv.innerText = msg;
     msgDiv.style.display = "block";
     msgDiv.style.color = "red";

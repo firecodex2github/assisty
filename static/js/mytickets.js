@@ -15,7 +15,11 @@ let socket = null;
 let activeUserChatTicket = null;   //Which ticket chat is currently open
 let userTypingTimer;
 
+<<<<<<< HEAD
 /*  AUTH HELPERS  */
+=======
+/* ========= AUTH HELPERS ========= */
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 async function fetchWithRefresh(url, options = {}) {
     let token = sessionStorage.getItem("access_token");
     if (!token) { logout(); return null; }
@@ -46,7 +50,11 @@ function getPriorityClass(p) {
     return "bg-primary";
 }
 
+<<<<<<< HEAD
 /*  LOAD TICKETS  */
+=======
+/* ========= LOAD TICKETS ========= */
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 async function fetchTickets() {
     const grid = document.getElementById("ticketContainer");
     if(!grid) return;
@@ -96,7 +104,10 @@ async function fetchTickets() {
                             <span class="badge ${getPriorityClass(priority)} small mb-2">${priority} Priority</span>
                         </div>
                         <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="viewIssue('${t.ticket_no}')">View</button>
+<<<<<<< HEAD
                         <span class="badge bg-success text-white">${new Date(t.created_at).toLocaleDateString()}</span>
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                     </div>
                     <div class="d-flex justify-content-between gap-1 my-4">
                         <span class="badge rounded-pill flex-fill ${pOpen}">Open</span>
@@ -113,7 +124,11 @@ async function fetchTickets() {
     } catch (e) { console.error(e); }
 }
 
+<<<<<<< HEAD
 /*  CHAT LOGIC  */
+=======
+/* ========= CHAT LOGIC ========= */
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 window.openChat = async function(ticketNo) {
     // 1. Clear unread indicator
     localStorage.removeItem(`unread_${ticketNo}`);
@@ -178,8 +193,11 @@ window.openChat = async function(ticketNo) {
     };
 };
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 function appendChatMessage(sender, text) {
     const box = document.getElementById("chatMessages");
     if(!box) return;
@@ -204,7 +222,11 @@ window.sendMessage = function() {
     input.value = "";
 };
 
+<<<<<<< HEAD
 /*  TYPING INDICATOR  */
+=======
+/* ========= TYPING INDICATOR ========= */
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 function handleUserTypingIndicator(sender) {
     const indicator = document.getElementById("typingIndicator");
     if (!indicator) return;
@@ -213,7 +235,11 @@ function handleUserTypingIndicator(sender) {
     userTypingTimer = setTimeout(() => { indicator.innerText = ""; }, 3000);
 }
 
+<<<<<<< HEAD
 /*  ISSUE DETAILS & UTILS  */
+=======
+/* ========= ISSUE DETAILS & UTILS ========= */
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 window.viewIssue = async function(ticketNo) {
     const detailsBody = document.getElementById('issueDetailsBody');
     const modalElement = document.getElementById("viewIssuePopup");

@@ -11,6 +11,7 @@ function logIn(event) {
     const password = document.getElementById("pass").value.trim();
     const msg = document.getElementById("msg");
 
+<<<<<<< HEAD
     msg.innerText = "";
 
 
@@ -18,12 +19,16 @@ function logIn(event) {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
 
+=======
+    if (msg) msg.innerText = "";
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
 
     if (!username || !password) {
         showInlineError("All fields are required");
         return;
     }
 
+<<<<<<< HEAD
 
     if (!usernameRegex.test(username)) {
         showInlineError("Username must be min 4 letters (no spaces)");
@@ -37,6 +42,8 @@ function logIn(event) {
 
 
 
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
     fetch("/agent/login", {
         method: "POST",
         headers: {
@@ -66,8 +73,11 @@ function logIn(event) {
 
         showNotification("success", "Agent Login Successfully!..");
 
+<<<<<<< HEAD
         document.getElementById("uname").value = "";
         document.getElementById("pass").value = "";
+=======
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
         // 2. Redirect to the admin dashboard after a short delay
         setTimeout(() => {
             window.location.href = '/admin-dashboard';

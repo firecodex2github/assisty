@@ -62,14 +62,24 @@
                 <h2>Welcome Back</h2>
                 <span>Login to continue</span>
 
+<<<<<<< HEAD
                 <form method="post" action="/user/login" onsubmit="logIn(event)"  novalidate>
                     <div class="input-group-custom">
                         <input type="email" id="email" name="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+=======
+                <form method="post" action="/user/login" onsubmit="logIn(event)">
+                    <div class="input-group-custom">
+                        <input type="email" id="email" name="email">
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                         <label>Email Address</label>
                     </div>
 
                     <div class="input-group-custom">
+<<<<<<< HEAD
                         <input type="password" id="password" name="password" class="password-input" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$" />
+=======
+                        <input type="password" id="password" name="password" class="password-input" />
+>>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
                         <label>Password</label>
                         <i id="toggleIcon" class="bi bi-eye password-toggle" onclick="togglePassword()"></i>
                     </div>
