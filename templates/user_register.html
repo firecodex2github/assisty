@@ -54,33 +54,19 @@
           <h1>Create Account</h1>
           <span>Join our secure support platform</span>
 
-<<<<<<< HEAD
           <form method="post" action="/user/register" novalidate>
             <div class="input-group">
               <input type="text" name="name" id="name" pattern="^[A-Za-z ]{3,50}$"/>
-=======
-          <form method="post" action="/user/register">
-            <div class="input-group">
-              <input type="text" name="name" id="name" />
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
               <label>Full Name</label>
             </div>
 
             <div class="input-group">
-<<<<<<< HEAD
               <input type="email" name="email" id="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
-=======
-              <input type="email" name="email" id="email"  />
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
               <label>Email Address</label>
             </div>
 
             <div class="input-group position-relative">
-<<<<<<< HEAD
-              <input type="password" id="password" class="password-input" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$" />
-=======
-              <input type="password" id="password" class="password-input" name="password" />
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
+              <input type="password" id="password" class="password-input" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$" />
               
               <label>Password</label>
                 <i id="toggleIcon" class="bi bi-eye password-toggle" onclick="togglePassword()"></i>       
@@ -88,15 +74,7 @@
 
             <div class="input-group position-relative">
               <input
-<<<<<<< HEAD
-                type="password" id="confirmPassword" name="confirm_password" class="password-input" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$" />
-=======
-                type="password"
-                id="confirmPassword"
-                name="confirm_password"
-                class="password-input"
-              />
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
+                type="password" id="confirmPassword" name="confirm_password" class="password-input" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$" />
             
               <label>Confirm Password</label>
                 <i id="toggleConfirmIcon" class="bi bi-eye password-toggle" onclick="toggleConfirmPassword()"></i>
@@ -136,14 +114,5 @@
     <script src="../static/js/user_register.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<<<<<<< HEAD
-=======
-    <script>
-      function goBack() {
-      window.location.href = '/';
-       }
-    </script>
-
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
   </body>
 </html>

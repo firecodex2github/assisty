@@ -266,10 +266,7 @@ window.viewIssue = async function(ticketNo) {
         }
         detailsBody.innerHTML = `<div class="row g-3">
         <div class="col-md-6"><label class="detail-label">TICKET</label><p class="fw-bold">${t.ticket_no}</p></div>
-<<<<<<< HEAD
         <div class="col-md-6"><label class="detail-label">USER EMAIL</label><p class="fw-bold">${t.user_email || 'N/A'}</p></div>
-=======
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
         <div class="col-md-6"><label class="detail-label">STATUS</label><br><span class="badge ${getStatusClass(t.status)}">${t.status}</span></div>
         <div class="col-12"><label class="detail-label">SUBJECT</label><h5>${t.subject}</h5></div>
         <div class="col-12"><label class="detail-label">DESCRIPTION</label><div class="bg-light p-3 border rounded">${t.description || 'No description.'}</div></div>

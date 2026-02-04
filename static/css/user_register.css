@@ -183,20 +183,17 @@ button:hover {
         flex-direction: column;
     }
 
-<<<<<<< HEAD
+
     /*  Hide image section */
-=======
-    /* ❌ Hide image section */
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
+
     .left-panel {
         display: none;
     }
 
-<<<<<<< HEAD
-    /*  Form full screen */
-=======
-    /* ✅ Form full screen */
->>>>>>> ef7ca403f233ce7b09fa19288effc38235f45467
+
+
+    /* Form full screen */
+
     .right-panel {
         flex: 1;
         width: 100%;
