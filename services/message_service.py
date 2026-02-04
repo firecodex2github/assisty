@@ -199,6 +199,7 @@ def get_single_ticket_details(ticket_no: str, user: dict, db: Session):
 
     return {
         "ticket_no": ticket.ticket_no,
+        "priority":ticket.priority,
         "user_email":user_email,
         "subject": ticket.subject,
         "status": ticket.status,
