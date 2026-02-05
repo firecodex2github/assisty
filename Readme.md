@@ -62,13 +62,13 @@ A web-based customer support system where users can raise tickets with screensho
 
 ## Prerequisites
 
-- Make sure the following are installed on your system:
+Make sure the following are installed on your system:
 
 * Python 3.9 or above
 * MySQL Server
 * Git
   
-- Verify installation:
+Verify installation using following commands:
 
 * python --version
 * mysql --version
